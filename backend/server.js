@@ -4,6 +4,8 @@ dotenv.config()
 import { notFound,errorHandler } from "./middleware/errormiddleware.js";
 import  userRouter from './routers/userRouter.js'
 import connectDB from "./config/db.js";
+import cookieParser from "cookie-parser";
+
 const port=process.env.PORT||3001;
 
 connectDB()
@@ -11,6 +13,8 @@ const app=express()
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
+app.use(cookieParser())
+
 app.use('/api/users',userRouter)
 
 app.get('/',(req,res)=>res.send('server is connected'))
