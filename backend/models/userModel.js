@@ -15,6 +15,10 @@ const userSchema=mongoose.Schema({
         type:String,
         require:true
     },
+    image:{
+        type:String,
+        default:''
+    }
 },{
     timestamps:true
 })

@@ -13,6 +13,7 @@ const authUser = asyncHandler(async (req, res) => {
           _id: user._id,
           name: user.name,
           email: user.email,
+          image:user.image?user.image:null
         });
     }
     else{
@@ -67,11 +68,17 @@ const getUserProfile = asyncHandler(async (req, res) => {
 });
 
 const updateUserProfile = asyncHandler(async (req, res) => {
+  
     const user=await UserModel.findById(req.user)
-    console.log(req.body)
+    console.log('haaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',req.body)
     if(user){
+      try {
         user.name=req.body.name||user.name
         user.email=req.body.email||user.email
+        if(req.file){
+
+          user.image=req.file.filename||user.image
+        }
         if(req.body.password){
             user.password=req.body.password
         }
@@ -79,8 +86,13 @@ const updateUserProfile = asyncHandler(async (req, res) => {
         res.status(200).json({
             id:updatedUser._id,
             name:updatedUser.name,
-            email:updatedUser.email
+            email:updatedUser.email,
+            image:updatedUser.image
         })
+      } catch (err) {
+        console.log(err.message)
+      }
+       
     }
     else{
         req.status(400)

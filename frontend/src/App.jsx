@@ -5,9 +5,10 @@ import { Container } from 'react-bootstrap'
 import {ToastContainer} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 
+
 const App = () => {
   return (
-    <div>
+    <div >
       <Header/>
       <ToastContainer/>
       <Container className='my-2'>
