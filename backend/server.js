@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 import { notFound,errorHandler } from "./middleware/errormiddleware.js";
 import  userRouter from './routers/userRouter.js'
+import adminRouter from "./routers/adminRoutes.js";
 import connectDB from "./config/db.js";
 import cookieParser from "cookie-parser";
 import cors from "cors"
@@ -21,6 +22,7 @@ app.use(cookieParser())
 app.use(cors({ origin: "http://localhost:2000", credentials: true }));
 
 app.use('/api/users',userRouter)
+app.use('/api/admin',adminRouter)
 
 
   

@@ -1,15 +1,25 @@
 import mongoose from "mongoose";
+import bcrypt from 'bcryptjs'
 
 const adminSchema=mongoose.Schema({
-    username:{
-        type:String,
-        require:true
-    },
-    password:{
-        type:String,
-        require:true
-    }
+    name: {
+        type: String,
+        required: true,
+      },
+      email: {
+        type: String,
+        required: true,
+        unique: true,
+      },
+      password: {
+        type: String,
+        required: true,
+      },
 })
 
-const adminModel=mongoose.model('Admin',adminSchema)
-export default adminModel;
+adminSchema.methods.matchPassword = async function (enteredPassword) {
+    return await bcrypt.compare(enteredPassword, this.password);
+  };
+
+const Admin=mongoose.model('Admin',adminSchema)
+export default Admin;

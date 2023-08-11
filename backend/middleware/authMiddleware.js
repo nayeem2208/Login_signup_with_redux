@@ -9,7 +9,7 @@ const protect=asyncHandler(async(req,res,next)=>{
     token=req.cookies.jwt
     if(token){
         try{
-            let decoded=await jwt.verify(token,process.env.JWT_SECRET)
+            let decoded= jwt.verify(token,process.env.JWT_SECRET)
             req.user=await UserModel.findById(decoded.userId).select('-password')
             next()
         }
